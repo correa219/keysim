@@ -22,12 +22,14 @@ import icon60hhkb from "../../assets/icons/icon-60-hhkb.png";
 import * as caseActions from "../../store/slices/case";
 import * as settingsActions from "../../store/slices/settings";
 import * as keyActions from "../../store/slices/keys";
+import * as switchActions from "../../store/slices/switches";
 
 export default function BoardOptions() {
   const dispatch = useDispatch();
 
   const layout = useSelector(caseActions.selectLayout);
   const legendPrimaryStyle = useSelector(keyActions.selectLegendPrimaryStyle);
+  const soundProfile = useSelector(keyActions.selectSoundProfile);
   const legendSecondaryStyle = useSelector(
     keyActions.selectLegendSecondaryStyle
   );
@@ -93,6 +95,18 @@ export default function BoardOptions() {
           ]}
           handler={(val) => {
             dispatch(keyActions.setLegendSecondaryStyle(val));
+          }}
+        />
+
+        <SelectField
+          label="Switch Profile"
+          selected={soundProfile}
+          options={[
+            { label: "creams", value: "creams" },
+            { label: "browns", value: "browns" },
+          ]}
+          handler={(val) => {
+            dispatch(keyActions.setSoundProfile(val));
           }}
         />
       </CollapsibleSection>

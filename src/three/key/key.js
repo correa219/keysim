@@ -4,6 +4,8 @@ import ColorUtil from "../../util/color";
 import store from "../../store/store";
 import { subscribe } from "redux-subscriber";
 import { initial_settings } from "../../store/startup";
+import clack from "./switch_007.ogg";
+import novelCream from "./nk_cream.mp3";
 import {
   keyMaterials,
   setKeyMaterialState,
@@ -38,6 +40,8 @@ export class Key {
     this.legend = currentState.keys.legendPrimaryStyle || "cherry";
     this.sub = currentState.keys.legendSecondaryStyle || "";
     this.testing = initial_settings.settings.testing || false;
+    this.sound = currentState.keys.soundProfile || "creams";
+    this.audio = novelCream;
     this.setup();
   }
 
@@ -83,6 +87,11 @@ export class Key {
     subscribe("keys.legendPrimaryStyle", (state) => {
       this.legend = state.keys.legendPrimaryStyle;
       this.updateColors(false, true);
+    });
+
+    subscribe("keys.soundProfile", (state) => {
+      this.sound = state.keys.soundProfile;
+      this.updateSound();
     });
 
     subscribe("colorways.active", (state) => {
@@ -175,9 +184,11 @@ export class Key {
   }
   // set key to fully pressed position and update state
   bottomOut() {
+    let audio = new Audio(this.audio);
     this.cap.position.y = this.start_y - this.dist_pressed;
     this.setState(KEYSTATES.PRESSED);
     this.direction = 1;
+    audio.play();
     if (this.queueRelease) {
       this.setState(KEYSTATES.MOVING_UP);
       this.queueRelease = false;
@@ -188,6 +199,18 @@ export class Key {
     updateMaterials(this.cap, this.materialOptions, textureOnly);
     if (!includeActiveMaterial) return;
     updateActiveMaterials(this.cap, this.materialOptions, textureOnly);
+  }
+  updateSound() {
+    switch (this.sound) {
+      case "creams":
+        this.audio = novelCream;
+        break;
+      case "browns":
+        this.audio = clack;
+        break;
+      default:
+        this.audio = novelCream;
+    }
   }
   // update key
   update() {

@@ -29,6 +29,7 @@ export const getPermalink = () => {
     sub: state.keys.legendSecondaryStyle,
     cf: state.case.material,
     cc: state.case.primaryColor.replace("#", ""),
+    sound: state.keys.soundProfile,
   });
   return link + "?" + query;
 };

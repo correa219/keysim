@@ -81,6 +81,9 @@ const getInitialState = () => {
   if (qs && qs["cf"]) {
     initial.case.material = qs["cf"];
   }
+  if (qs && qs["sound"]) {
+    initial.keys.soundProfile = qs["sound"];
+  }
 
   let accent = "";
   if (qs && typeof qs["colorway"] === "object") {

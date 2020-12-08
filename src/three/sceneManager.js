@@ -102,7 +102,7 @@ export default class SceneManager extends Collection {
   setupCamera() {
     this.camera = new THREE.PerspectiveCamera(60, this.w / this.h, 1, 1000);
     this.camera.position.y = 15;
-    this.camera.position.z = 15;
+    this.camera.position.z = 0;
     this.camera.position.x = 0;
   }
   setupControls() {

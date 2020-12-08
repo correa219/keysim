@@ -17,6 +17,9 @@ export const keysSlice = createSlice({
     setLegendSecondaryStyle: (state, action) => {
       state.legendSecondaryStyle = action.payload;
     },
+    setSoundProfile: (state, action) => {
+      state.soundProfile = action.payload;
+    },
   },
 });
 
@@ -24,11 +27,13 @@ export const {
   toggleVisible,
   setProfile,
   setLegendPrimaryStyle,
+  setSoundProfile,
   setLegendSecondaryStyle,
 } = keysSlice.actions;
 
 export const selectVisible = (state) => state.keys.visible;
 export const selectProfile = (state) => state.keys.profile;
+export const selectSoundProfile = (state) => state.keys.soundProfile;
 export const selectLegendPrimaryStyle = (state) =>
   state.keys.legendPrimaryStyle;
 export const selectLegendSecondaryStyle = (state) =>
